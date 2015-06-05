@@ -56,7 +56,7 @@ FORMAT = ihex
 # over the USB port. The -D option prevents a flash erase; this is required
 # because of a limitation in the Mega's bootloader.
 AVRDUDE_PROGRAMMER = wiring -D
-AVRDUDE_PORT = /dev/ttyACM1 115200 -F 
+AVRDUDE_PORT = /dev/ttyACM0 115200 -F 
 
 AVRDUDE_WRITE_FLASH =	-U flash:w:
 AVRDUDE_WRITE_EEPROM =	-U eeprom:w:
@@ -113,21 +113,25 @@ ADA_TARGETS =	$(ADA_TARGETS_ELF) 	\
 		$(ADA_TARGETS_SIZE)
 
 # Default target.
-all: build
+all: build_targets
+
+show-targets:
+	echo $(ADA_TARGETS)
 
 # Create the necessary sub-directories
 SUBDIRS := obj $(BUILD)
 
 
-build: $(ADA_TARGETS)
+build_targets: $(ADA_TARGETS)
+	echo $(ADA_TARGETS)
 
 %.size: %.elf FORCE
 	$(SIZE) --format=avr --mcu=$(MCU) $<
 
 install: upload
 
-upload: $(TARGETS_HEX) $(TARGETS_EEP)
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$*.hex
+upload: $(ADA_TARGETS_HEX) $(ADA_TARGETS_EEP)
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$(ADA_TARGETS_HEX)
 
 # clear-bootloader wipes the bootloader and causes the board to boot
 # from a bare-metal program.
@@ -158,6 +162,7 @@ OBJCOPY_ARGS =	-j .eeprom --set-section-flags=.eeprom="alloc,load"	\
 # build and link using gnatmake, force rebuilding by gnatmake to
 # make sure dependencies are resolved
 %.elf: $(GPR) $(SUBDIRS) FORCE
+	echo $@
 	$(GNATMAKE) $(MFLAGS) -XAVRADA_MAIN=$*
 
 # Compile: create assembler files from Ada source files.
@@ -202,3 +207,4 @@ FORCE:
 .PHONY: all finish build elf hex eep lss sym clean clean_list program
 .PHONY: install upload
 
+										
