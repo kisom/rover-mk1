@@ -1,0 +1,16 @@
+Arduino pin	Mega pin	I/O	Purpose
+=======================================================================
+D0		PE0
+D1		PE1
+D2		PE4
+D3		PE5
+D4		PG5
+D5		PE3
+D6		PH3
+D7		PH4		O	LEDR
+D8		PH5		O	LEDL
+D9		PH6			Left IR LED
+D10		PB6			Left IR receiver
+D11		PB5		O	Right drivetrain servo
+D12		PB6		O	Left drivetrain servo
+

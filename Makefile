@@ -124,6 +124,8 @@ build: $(ADA_TARGETS)
 %.size: %.elf FORCE
 	$(SIZE) --format=avr --mcu=$(MCU) $<
 
+install: upload
+
 upload: $(TARGETS_HEX) $(TARGETS_EEP)
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$*.hex
 
@@ -175,7 +177,6 @@ $(SUBDIRS):
 	$(REMOVE) -r $@
 	mkdir $@
 
-# Target: clean project.
 clean: clean_gnat clean_list
 
 clean_gnat:
@@ -198,5 +199,6 @@ clean_list :
 FORCE:
 
 # Listing of phony targets.
-.PHONY : all finish build elf hex eep lss sym clean clean_list program
+.PHONY: all finish build elf hex eep lss sym clean clean_list program
+.PHONY: install upload
 

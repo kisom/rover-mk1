@@ -1,0 +1,42 @@
+BUILDING THE SOURCE TREE
+========================
+
+Overview:
+
+The robot is programmed in Ada, and uses GNAT and GPR for building the
+source code. Programming is done via the Arduino bootloader; the ICSP
+header is not accessible in the current hardware configuration making
+the bootloader a necessity for now.
+
+A Makefile handles the build process, calling GPR as needed, and contains
+a target for uploading the code to the board.
+
+
+Dependencies:
+
+* gprbuild (may be packaged with GNAT, depending on how it has been
+  installed)
+* avr-binutils
+* avr-libc
+* AVR-Ada
+
+
+AVR-Ada:
+
+If there isn't a build for your machine, you'll have to build this from
+source. May the gods have mercy on your soul.
+
+
+Building:
+
+Once the dependencies are installed, "make" will build the tree. All
+build artifacts will be placed in the "build" subdirectory. "make upload"
+will upload the program to the robot; "make install" is a synonym target
+for this. The build should be conducted from the project root.
+
+
+Uploading:
+
+First, connect a USB programming cable for the Arduino Mega 2560 to the
+machine and to the robot. Then issue "make upload" from the project
+root.

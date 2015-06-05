@@ -1,0 +1,6 @@
+Hardware
+========
+
+The Hardware package contains hardware-interaction packages for use by
+the rover. In most cases, these will be rather specific to the rover's
+hardware configuration.

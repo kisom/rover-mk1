@@ -1,3 +1,5 @@
+pragma Profile (Ravenscar);
+
 package ROSA is
-   null;
+
 end ROSA;

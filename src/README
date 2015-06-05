@@ -1,0 +1,16 @@
+Rover source tree
+=================
+
+The source code is arranged into directories containing a grouping of
+packages by some common thread. The current directory contains the
+main application code that runs on the rover (e.g. package Rover).
+
+Other packages are grouped into their own subdirectories; see their
+README files for more information.
+
+
+
+Rover packages:
+
+    Rover: this is the main application.
+

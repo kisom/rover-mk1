@@ -1,0 +1,12 @@
+# intermediate directories
+build
+obj
+
+# artifacts
+*.eep
+*.elf
+*.hex
+*.lss
+*.map
+*.sym
+*.o

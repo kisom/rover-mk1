@@ -1,0 +1,8 @@
+Documentation Overview
+======================
+
+building.txt: instructions for building the source tree.
+hardware/
+	pins.txt: pin mapping and assignments
+	subsystems: delineates the hardware subsystems
+
