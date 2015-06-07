@@ -1,5 +1,28 @@
-- sensors
-- drivetrain
-- logic
-- platform
 - communications
+
+Rover Subsystems Overview
+=========================
+
+Drivetrain:
+
+The drivetrain consists of a pair of Parallax continuous-rotation servo
+motors with a 20ms duty cycle with a range of 1.3ms - 1.7ms for control
+signals.
+
+
+Platform:
+
+The rover is built on the Parallax Board of Education chassis and
+mainboard with an Arduino Mega 2560 (ATmega2560) as the controller. A
+pair of LEDs are mounted forward and connected to the controller to
+serve as an alert beacon.
+
+
+Sensors:
+
+Proximity detection is accomplished through an IR strobe and IR receiver.
+
+
+Communications:
+
+434 MHz RF link
