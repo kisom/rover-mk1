@@ -43,7 +43,7 @@ BUILD := build
 
 
 #---------------- GNATMAKE Options ----------------
-MFLAGS = -XMCU=$(MCU) -p -P$(GPR)
+MFLAGS = -XMCU=$(MCU) -p -P$(GPR) -Wall
 # -p : Create missing obj, lib and exec dirs
 
 #---------------- Programming Options (avrdude) ----------------
@@ -191,15 +191,15 @@ clean_gnat_recursive:
 	avr-gnatclean -r -XMCU=$(MCU) -P$(GPR)
 
 clean_list :
-	$(REMOVE) *.hex
-	$(REMOVE) *.eep
-	$(REMOVE) *.elf
-	$(REMOVE) *.map
-	$(REMOVE) *.sym
-	$(REMOVE) *.lss
-	$(REMOVE) *.ali
-	$(REMOVE) b~*.ad?
-	$(REMOVE) -rf $(SUBDIRS)
+	$(REMOVE) -f *.hex
+	$(REMOVE) -f *.eep
+	$(REMOVE) -f *.elf
+	$(REMOVE) -f *.map
+	$(REMOVE) -f *.sym
+	$(REMOVE) -f *.lss
+	$(REMOVE) -f *.ali
+	$(REMOVE) -f b~*.ad?
+	$(REMOVE) -f -rf $(SUBDIRS)
 
 FORCE:
 
@@ -207,4 +207,3 @@ FORCE:
 .PHONY: all finish build elf hex eep lss sym clean clean_list program
 .PHONY: install upload
 
-										

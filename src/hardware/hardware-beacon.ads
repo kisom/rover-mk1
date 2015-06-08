@@ -5,7 +5,8 @@ with Interfaces;
 
 package Hardware.Beacon is
 
-   -- Tick_Size indicates how many ticks in a 100ms beacon cycle there are.
+   --  Tick_Size indicates how many ticks in a 100ms beacon cycle
+   --  there are.
    procedure Init (Tick_Size : in Interfaces.Unsigned_8);
    procedure Trigger;
 
@@ -17,4 +18,5 @@ private
    Tick       : Interfaces.Unsigned_8;
    Counter    : Interfaces.Unsigned_8;
    Resolution : Interfaces.Unsigned_8;
+
 end Hardware.Beacon;

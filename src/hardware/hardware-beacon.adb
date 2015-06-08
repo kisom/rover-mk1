@@ -1,9 +1,7 @@
-with AVR; use AVR;
-with AVR.MCU;
-
 with Interfaces; use Interfaces;
 
 package body Hardware.Beacon is
+
    procedure Init (Tick_Size : Interfaces.Unsigned_8) is
    begin
       Resolution := Tick_Size;

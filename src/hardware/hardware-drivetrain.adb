@@ -1,60 +1,47 @@
-with AVR, AVR.MCU, AVR.Real_Time.Clock, AVR.Timer1;
-use  AVR;
-
-pragma Unreferenced (AVR.Timer1);
-pragma Unreferenced (AVR.Real_Time.Clock);
-
-with Interfaces;
+with AVR.MCU;
 
 package body Hardware.DriveTrain is
 
    procedure Init is
    begin
+      MCU.DDRB_Bits (Pin_Right) := DD_Output;
+      MCU.DDRB_Bits (Pin_Left)  := DD_Output;
 
-      --  Enable Timer1 by setting its power reduction mode to off.
-      MCU.PRR1_Bits (MCU.PRTIM1_Bit) := Low;
+      PWM.Connect (Pin_Right, Motor_Right);
+      PWM.Connect (Pin_Left, Motor_Left);
 
-      Timer1.Init_PWM (Timer1.Scale_By_8, Timer1.Fast_PWM_8bit, False);
-      MCU.DDRB_Bits (Left_Bit) := DD_Output;
-      MCU.DDRB_Bits (Right_Bit) := DD_Output;
-
-      Stop;
+      PWM.Set (Motor_Right, Rotate_Stop);
+      PWM.Set (Motor_Left,  Rotate_Stop);
    end Init;
 
    procedure Forward is
    begin
-      Left_PWM := MCU.ICR1 - Rotate_Backward;
-      Right_PWM := MCU.ICR1 - Rotate_Forward;
+      PWM.Set (Motor_Right, Rotate_Backward);
+      PWM.Set (Motor_Left,  Rotate_Forward);
    end Forward;
-
-   procedure Stop is
-   begin
-      Left_PWM := Rotate_Stop;
-      Right_PWM := Rotate_Stop;
-   end Stop;
 
    procedure Backward is
    begin
-      Left_PWM := Rotate_Forward;
-      Right_PWM := Rotate_Backward;
+      PWM.Set (Motor_Left,  Rotate_Backward);
+      PWM.Set (Motor_Right, Rotate_Forward);
    end Backward;
 
-   procedure RotateLeft is
+   procedure Rotate_Left is
    begin
-      Left_PWM := Rotate_Backward;
-      Right_PWM := Rotate_Backward;
-   end RotateLeft;
+      PWM.Set (Motor_Left,  Rotate_Backward);
+      PWM.Set (Motor_Right, Rotate_Backward);
+   end Rotate_Left;
 
-   procedure RotateRight is
+   procedure Rotate_Right is
    begin
-      Left_PWM := Rotate_Forward;
-      Right_PWM := Rotate_Forward;
-   end RotateRight;
+      PWM.Set (Motor_Left,  Rotate_Forward);
+      PWM.Set (Motor_Right, Rotate_Forward);
+   end Rotate_Right;
 
-   procedure Set (Left, Right : Interfaces.Unsigned_16) is
+   procedure Stop is
    begin
-      Left_PWM := Left;
-      Right_PWM := Right;
-   end Set;
+      PWM.Set (Motor_Left,  Rotate_Stop);
+      PWM.Set (Motor_Right, Rotate_Stop);
+   end Stop;
 
 end Hardware.DriveTrain;

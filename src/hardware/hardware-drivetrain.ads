@@ -1,8 +1,6 @@
-with AVR, AVR.MCU;
-use  AVR;
-
-with Interfaces;
-use  Interfaces;
+with AVR;          use AVR;
+with Interfaces;   use Interfaces;
+with Hardware.PWM; use Hardware;
 
 package Hardware.DriveTrain is
 
@@ -10,25 +8,18 @@ package Hardware.DriveTrain is
 
    procedure Forward;
    procedure Backward;
-   procedure RotateLeft;
-   procedure RotateRight;
+   procedure Rotate_Left;
+   procedure Rotate_Right;
    procedure Stop;
-   procedure Set (Left, Right : Interfaces.Unsigned_16);
 
 private
-   Left_Bit  : Bit_Number := 4;
-   Right_Bit : Bit_Number := 3;
+   Motor_Right : Hardware.PWM.Servo_Index;
+   Motor_Left  : Hardware.PWM.Servo_Index;
 
-   --  Left and right motors; see the hardware documentation for
-   --  more information.
-   Left_Pin  : Boolean renames MCU.PORTB_Bits (Left_Bit);
-   Right_Pin : Boolean renames MCU.PORTB_Bits (Right_Bit);
+   Pin_Right : AVR.Bit_Number := 3; --  PB5
+   Pin_Left  : AVR.Bit_Number := 4; --  PB6
 
-   Left_PWM  : Unsigned_16 renames MCU.OCR1B;
-   Right_PWM : Unsigned_16 renames MCU.OCR1A;
-
-   --  PWM pulse values for the various settings on the servo.
-   Rotate_Forward  : constant := 16#b2#;
-   Rotate_Stop     : constant := 16#b2#;
-   Rotate_Backward : constant := 16#b2#;
+   Rotate_Forward  : Unsigned_16 := 1700;
+   Rotate_Stop     : Unsigned_16 := 1500;
+   Rotate_Backward : Unsigned_16 := 1300;
 end Hardware.DriveTrain;
